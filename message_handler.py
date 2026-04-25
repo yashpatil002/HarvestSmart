@@ -8,7 +8,7 @@ import logging
 from mandi_api import fetch_mandi_data, fetch_all_states_data
 from price_analyzer import analyze, get_state_comparison, clean_records
 from blockchain import log_query
-from lang import detect_language, normalize_input, localize_advice, t
+from lang import detect_language, normalize_input, localize_advice, localize_state, t, currency
 
 logger = logging.getLogger(__name__)
 
@@ -81,21 +81,25 @@ def build_query_response(commodity: str, state: str, quantity: float,
     all_records = fetch_all_states_data(commodity)
     all_cleaned = clean_records(all_records)
     top_states  = get_state_comparison(all_cleaned, top_n=5) if all_cleaned else []
-    best_state  = top_states[0]["state"] if top_states else (best["state"] if best else t("na", lang))
+    best_state_en = top_states[0]["state"] if top_states else (best["state"] if best else "")
+    best_state    = localize_state(best_state_en, lang) if best_state_en else t("na", lang)
 
     try:
         record_id = log_query(sender, commodity, state, quantity, result)[:12]
     except Exception:
         record_id = "N/A"
 
-    # Bug fix: use 'avg' key (price_analyzer returns avg, not median)
-    compare_text = "\n".join(f"{s['state']}: Rs.{s['avg']:.0f}" for s in top_states)
+    # Localize state names in the top-states list
+    compare_text = "\n".join(
+        f"{localize_state(s['state'], lang)}: {currency(lang)}{s['avg']:.0f}"
+        for s in top_states
+    )
 
     best_market = best["market"] if best else t("na", lang)
 
     return (
-        f"📊 {t('crop_price', lang)}: Rs.{median:.0f}/quintal\n"
-        f"💰 ~Rs.{median_kg:.2f}/{t('per_kg', lang)}\n\n"
+        f"📊 {t('crop_price', lang)}: {currency(lang)}{median:.0f}/quintal\n"
+        f"💰 ~{currency(lang)}{median_kg:.2f}/{t('per_kg', lang)}\n\n"
         f"📍 {t('best_mandi', lang)}: {best_market}\n\n"
         f"🏆 {t('best_state', lang)}: {best_state}\n\n"
         f"📈 {advice['trend']}\n"
@@ -119,9 +123,9 @@ def build_compare_response(commodity: str, lang: str) -> str:
     medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"]
     lines  = [f"🌍 {t('state_comparison', lang)} — {commodity.title()}\n"]
     for i, s in enumerate(top_states):
-        # Bug fix: use 'avg' key
+        # Localize state name to user's language
         lines.append(
-            f"{medals[i]} {s['state']}  Rs.{s['avg']}/qtl  ({s['num_mandis']} {t('mandis', lang)})"
+            f"{medals[i]} {localize_state(s['state'], lang)}  {currency(lang)}{s['avg']}/qtl  ({s['num_mandis']} {t('mandis', lang)})"
         )
     lines.append(f"\n{t('sell_top_state', lang)}")
     return "\n".join(lines)
@@ -131,14 +135,19 @@ def build_compare_response(commodity: str, lang: str) -> str:
 # ENTRY POINT
 # ---------------------------------------------------------------------------
 
-def handle_message(text: str, sender: str) -> str:
+def handle_message(text: str, sender: str, is_voice: bool = False) -> str:
     # 1. Detect language from the raw text
     lang = detect_language(text)
 
-    # 2. Normalise native-script words to English so parser works unchanged
+    # 2. If voice input, strip filler words Whisper adds ("price of", "rate", etc.)
+    if is_voice:
+        text = clean_voice_transcript(text)
+        logger.info(f"Voice cleaned transcript: {text!r}")
+
+    # 3. Normalise native-script words to English so parser works unchanged
     normalised = normalize_input(text, lang)
 
-    # 3. Parse the normalised text
+    # 4. Parse the normalised text
     parsed = parse_message(normalised)
 
     if parsed is None:

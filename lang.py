@@ -123,6 +123,45 @@ STATE_MAP: dict[str, str] = {
 }
 
 # ---------------------------------------------------------------------------
+# 3b. REVERSE STATE MAP  (English API name -> native script per language)
+#     Built automatically from STATE_MAP above.
+# ---------------------------------------------------------------------------
+
+# Group native names by their English key, separated by language
+_STATE_NATIVE: dict[str, dict[str, str]] = {}
+for _native, _english in STATE_MAP.items():
+    # Detect script of native name to assign language
+    _lang = "kn" if _KANNADA.search(_native) else "hi"
+    _STATE_NATIVE.setdefault(_english, {})["_any"] = _native   # last-write fallback
+    _STATE_NATIVE[_english][_lang] = _native
+
+# ---------------------------------------------------------------------------
+# 3c. LOCALIZE NAMES  (English -> native for the user's language)
+# ---------------------------------------------------------------------------
+
+def localize_state(english_name: str, lang: str) -> str:
+    """
+    Translate an English state name returned by the API into the user's
+    language.  Falls back to the original English string if no translation
+    is found.
+    """
+    if lang == "en":
+        return english_name
+    key = english_name.strip().lower()
+    entry = _STATE_NATIVE.get(key, {})
+    return entry.get(lang) or entry.get("_any") or english_name
+
+
+def localize_mandi(english_name: str, lang: str) -> str:
+    """
+    Mandi names are proper nouns — we keep them in English regardless of
+    language, which is standard practice.  This function exists as a hook
+    so callers are explicit about the decision.
+    """
+    return english_name   # mandi proper-noun names are not translated
+
+
+# ---------------------------------------------------------------------------
 # 4. COMMAND KEYWORD MAPS  (native -> English)
 # ---------------------------------------------------------------------------
 
@@ -330,3 +369,16 @@ def localize_advice(advice: dict, lang: str) -> dict:
         "trend": t(trend_key, lang),
         "emoji": advice["emoji"],
     }
+
+# ---------------------------------------------------------------------------
+# CURRENCY SYMBOL HELPER
+# ---------------------------------------------------------------------------
+
+def currency(lang: str) -> str:
+    """
+    Return the currency symbol appropriate for the user's language/region.
+    English output uses the ₹ Unicode symbol (modern standard).
+    Hindi and Kannada also use ₹ but 'Rs.' is kept for legacy SMS compat —
+    override here if you want uniform ₹ everywhere.
+    """
+    return "₹"   # uniform ₹ across all languages (matches expected output)

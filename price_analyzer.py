@@ -69,10 +69,16 @@ def get_best_mandi(records: list[dict]) -> dict | None:
 
 
 def get_state_comparison(records: list[dict], top_n: int = 5) -> list[dict]:
-    """Average price per state, top N."""
+    """Average price per state, top N.
+    Accepts both raw records (has modal_price) and cleaned records (has _modal).
+    """
     state_prices: dict[str, list[int]] = defaultdict(list)
     for r in records:
-        price = to_int_price(r.get("modal_price"))
+        # Prefer _modal (set by clean_records) — fall back to raw modal_price
+        if "_modal" in r:
+            price = r["_modal"]
+        else:
+            price = to_int_price(r.get("modal_price"))
         if price is not None:
             state_prices[r.get("state", "Unknown")].append(price)
 
