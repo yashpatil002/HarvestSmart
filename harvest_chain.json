@@ -1,0 +1,166 @@
+[
+  {
+    "index": 0,
+    "timestamp": 1777058802.7614198,
+    "data": {
+      "type": "genesis",
+      "message": "HarvestSmart Chain"
+    },
+    "previous_hash": "0",
+    "hash": "84385cf7a85f1fc4195450feaa5a75df75594676b2a5cf7d5cac8540cd545089"
+  },
+  {
+    "index": 1,
+    "timestamp": 1777058802.7623227,
+    "data": {
+      "sender": "user****",
+      "commodity": "tomato",
+      "state": "karnataka",
+      "quantity": 1000.0,
+      "median_price": 3100,
+      "advice": "SELL NOW"
+    },
+    "previous_hash": "84385cf7a85f1fc4195450feaa5a75df75594676b2a5cf7d5cac8540cd545089",
+    "hash": "8150bca21440517eb0e0ccca1fdbd3b4055ea89e6810cec0427379f15e38503b"
+  },
+  {
+    "index": 2,
+    "timestamp": 1777058842.6247103,
+    "data": {
+      "sender": "0301****",
+      "commodity": "tomato",
+      "state": "karnataka",
+      "quantity": 1000.0,
+      "median_price": 3100,
+      "advice": "SELL NOW"
+    },
+    "previous_hash": "8150bca21440517eb0e0ccca1fdbd3b4055ea89e6810cec0427379f15e38503b",
+    "hash": "1b6d5f0eead1d6c246ba8018307fb41f12c4352be5355b78a34e6d67127e03b4"
+  },
+  {
+    "index": 3,
+    "timestamp": 1777059129.5443285,
+    "data": {
+      "sender": "0301****",
+      "commodity": "tomato",
+      "state": "karnataka",
+      "quantity": 1000.0,
+      "median_price": 3100,
+      "advice": "SELL NOW"
+    },
+    "previous_hash": "1b6d5f0eead1d6c246ba8018307fb41f12c4352be5355b78a34e6d67127e03b4",
+    "hash": "32b7fc59a7dc0b3b0b2c36d0cdbf1782bf61e6373550335482ffcb607223fc26"
+  },
+  {
+    "index": 4,
+    "timestamp": 1777062047.7046213,
+    "data": {
+      "sender": "0301****",
+      "commodity": "tomato",
+      "state": "karnataka",
+      "quantity": 1000.0,
+      "median_price": 3100,
+      "advice": "SELL NOW"
+    },
+    "previous_hash": "32b7fc59a7dc0b3b0b2c36d0cdbf1782bf61e6373550335482ffcb607223fc26",
+    "hash": "983e238e2dab9a64fece9effbe71ba9f56940a146a1b8977fc8e40bce682ce1a"
+  },
+  {
+    "index": 5,
+    "timestamp": 1777062235.6980286,
+    "data": {
+      "sender": "0301****",
+      "commodity": "tomato",
+      "state": "karnataka",
+      "quantity": 1000.0,
+      "median_price": 3100,
+      "advice": "SELL NOW"
+    },
+    "previous_hash": "983e238e2dab9a64fece9effbe71ba9f56940a146a1b8977fc8e40bce682ce1a",
+    "hash": "e6cbcfde2153065277dd6d9cf077fce314727b32274b4b32d48926231839bc8c"
+  },
+  {
+    "index": 6,
+    "timestamp": 1777062253.7251587,
+    "data": {
+      "sender": "0301****",
+      "commodity": "wheat",
+      "state": "maharashtra",
+      "quantity": 0,
+      "median_price": 2600.0,
+      "advice": "SELL IN 1-2 DAYS"
+    },
+    "previous_hash": "e6cbcfde2153065277dd6d9cf077fce314727b32274b4b32d48926231839bc8c",
+    "hash": "e5c50fb796672744d379afac89198092a777c3ca76611f009d358e58a1286d00"
+  },
+  {
+    "index": 7,
+    "timestamp": 1777062419.550245,
+    "data": {
+      "sender": "0301****",
+      "commodity": "onion",
+      "state": "karnataka",
+      "quantity": 0,
+      "median_price": 1500,
+      "advice": "WAIT"
+    },
+    "previous_hash": "e5c50fb796672744d379afac89198092a777c3ca76611f009d358e58a1286d00",
+    "hash": "561a9c6b023524fcf43d5428a2ab5a40fae8e25680badb792f89b0804522f5a7"
+  },
+  {
+    "index": 8,
+    "timestamp": 1777063578.8191495,
+    "data": {
+      "sender": "0301****",
+      "commodity": "tomato",
+      "state": "karnataka",
+      "quantity": 1000.0,
+      "median_price": 3100,
+      "advice": "SELL NOW"
+    },
+    "previous_hash": "561a9c6b023524fcf43d5428a2ab5a40fae8e25680badb792f89b0804522f5a7",
+    "hash": "4ff38bed9ab2fb50ab41d7cd1d3b302c809eb51f2cc00e86addb177bede9d7ec"
+  },
+  {
+    "index": 9,
+    "timestamp": 1777073858.203961,
+    "data": {
+      "sender": "0301****",
+      "commodity": "tomato",
+      "state": "karnataka",
+      "quantity": 0,
+      "median_price": 3100,
+      "advice": "SELL NOW"
+    },
+    "previous_hash": "4ff38bed9ab2fb50ab41d7cd1d3b302c809eb51f2cc00e86addb177bede9d7ec",
+    "hash": "e1fa7c63eedf585bddc172207ea6a2d13df392673a1bb435c24e3ec2d156e5e1"
+  },
+  {
+    "index": 10,
+    "timestamp": 1777074008.3215964,
+    "data": {
+      "sender": "0301****",
+      "commodity": "onion",
+      "state": "maharashtra",
+      "quantity": 0,
+      "median_price": 775,
+      "advice": "WAIT"
+    },
+    "previous_hash": "e1fa7c63eedf585bddc172207ea6a2d13df392673a1bb435c24e3ec2d156e5e1",
+    "hash": "7ac7a96df268a8e51226838effe3c8d60e6db7fa64a0eccf7c57252380411f4d"
+  },
+  {
+    "index": 11,
+    "timestamp": 1777074030.0950913,
+    "data": {
+      "sender": "0301****",
+      "commodity": "wheat",
+      "state": "punjab",
+      "quantity": 0,
+      "median_price": 2585.0,
+      "advice": "SELL IN 1-2 DAYS"
+    },
+    "previous_hash": "7ac7a96df268a8e51226838effe3c8d60e6db7fa64a0eccf7c57252380411f4d",
+    "hash": "602102e5912c3f62fd54e2dc4cb8042b40358f8f0e76d976b0867ad44af7f397"
+  }
+]
