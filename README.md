@@ -14,6 +14,7 @@
 | 💵 Profit Calculator | Estimated revenue for your quantity |
 | 📈 Sell Advice | SELL NOW / SELL SOON / WAIT based on national distribution |
 | 🔒 Blockchain Log | Every query is hash-logged for traceability |
+| 🔄 Real-Time Translation Core | Instant understanding across languages |
 
 ---
 
